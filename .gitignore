@@ -1,0 +1,7 @@
+*.cmi
+*.cmo
+*.cmx
+*.cma
+graph-llvm-ir
+*.sw?
+*~
