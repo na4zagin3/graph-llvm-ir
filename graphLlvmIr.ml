@@ -51,24 +51,12 @@ let number_tmps modl =
   let f_insn i =
       let i_name = value_name i in
       let i_type = type_of i in
-      print_string "insn:";
-      print_string i_name;
-      print_string ":";
-      print_string (string_of_bool (is_empty i_name));
-      print_string ":";
-      print_string (string_of_lltype i_type);
-      print_string ":";
-      print_string (string_of_llvalue i);
-      print_string "\n";
       if is_empty i_name && not (is_void i_type)
       then let new_name = Printf.sprintf "t%d" !tmp_i in
         set_value_name new_name i;
        tmp_i := !tmp_i + 1
       else () in
   let f_block b =  begin
-    print_string "block:";
-    print_string (name_of_block b);
-    print_string "\n";
     iter_instrs f_insn b
   end in
   let f_function = iter_blocks f_block in
@@ -328,8 +316,7 @@ let context = create_context ();;
 let modl = Llvm_irreader.parse_ir context mem;;
 
 let _ = number_tmps modl
-let _ = number_tmps modl
-let _ = number_tmps modl
+
 let _ =
   iter_functions (fun f ->
     if not (is_declaration f)
