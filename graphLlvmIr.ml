@@ -298,14 +298,19 @@ let specs = [
     "Add Graphviz-specific hacks to produce better layout";
 ]
 
-let usage = "%prog <file.ll>"
-let _ =
-  if Array.length Sys.argv <> 1
-  then
-    print_string "Wrong number of arguments";
-    Arg.usage specs usage
+let usage = Sys.argv.(0) ^ " <file.ll>"
 
-let _ = Arg.parse specs (fun s -> Printf.printf "arg:%s\n" s) usage
+let files = ref []
+let _ = Arg.parse specs (fun s -> files := s :: !files) usage
+let _ =
+  if List.length !files <> 1
+  then begin
+    print_string "Wrong number of arguments\n";
+    Arg.usage specs usage;
+    exit 1
+  end
+  else ()
+
 let _ =
   if not !control && not !dag_control
   then
