@@ -232,7 +232,7 @@ module Graph = struct
               else ()
             end;
             begin
-              let operands = List.map (operand i) (iota 0 (num_operands i - 1)) in
+              let operands = List.map (operand i) (iota 0 (num_operands i)) in
               List.iter (fun a ->
                 let arg_val = if is_constant a && is_empty (value_name a)
                                 then string_of_llvalue a
