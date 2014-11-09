@@ -275,7 +275,7 @@ module Graph = struct
 end
 
 let block = ref false
-let control = ref true
+let control = ref false
 let dag_control = ref false
 let block_edges = ref false
 let block_edges_helpers = ref false
