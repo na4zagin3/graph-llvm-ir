@@ -336,7 +336,8 @@ let _ =
         control = !control;
       } in
       let g = Graph.create f out options in
-      Graph.render g
+      Graph.render g;
+      close_out out
     end
   ) modl
 
