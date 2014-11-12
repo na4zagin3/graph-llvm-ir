@@ -173,7 +173,7 @@ module Graph = struct
         begin if self.options.block
         then begin
           write self (Printf.sprintf "subgraph \"cluster_%s\" {" block_name);
-          write self (Printf.sprintf "label=%s" block_name) end
+          write self (Printf.sprintf "label=\"%s\";" block_name) end
         else () end;
         (*
         begin if not self.options.block_edges
