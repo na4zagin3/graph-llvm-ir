@@ -29,6 +29,8 @@ let from_some = function
 let rec iota n ?(step=1) m =
   if m <= 0 then []
   else n :: iota (n + step) ~step (m - 1)
+let escaped_string_of_llvalue a =
+  Str.global_replace (Str.regexp "\n") "\\n" (string_of_llvalue a)
 
 (* Declear Variables? *)
 (* let #USE_CLUSTERS = 0 *)
@@ -221,7 +223,7 @@ module Graph = struct
           let last_inst_name = ref None in
           iter_instrs (fun i ->
             let n = instr_name self i in
-            write self (Printf.sprintf "\"%s\" [label=\"%s\"]//!n.c" n (string_of_llvalue i));
+            write self (Printf.sprintf "\"%s\" [label=\"%s\"]//!n.c" n (escaped_string_of_llvalue i));
             begin
               if self.options.control
               then match !last_inst_name with
@@ -235,7 +237,7 @@ module Graph = struct
               let operands = List.map (operand i) (iota 0 (num_operands i)) in
               List.iter (fun a ->
                 let arg_val = if is_constant a && is_empty (value_name a)
-                                then string_of_llvalue a
+                                then escaped_string_of_llvalue a
                                 else value_name a in
                 if is_branch i && value_is_block a
                 then
