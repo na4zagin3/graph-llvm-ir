@@ -151,9 +151,9 @@ module Graph = struct
           else () end;
 
           begin if not self.options.block_edges
-          then write self (Printf.sprintf "\"%s\" [label=\"label: %s\"]" name name)
+          then write self (Printf.sprintf "\"%s\" [label=\"label: %s\"]//!n.a" name name)
           else if self.options.block_edges_helpers
-          then write self (Printf.sprintf "\"%s\" [shape=point height=0.02 width=0.02 color=red fixedsize=true]" name)
+          then write self (Printf.sprintf "\"%s\" [shape=point height=0.02 width=0.02 color=red fixedsize=true]//!n.b" name)
           else () end;
 
           begin if true (* not self.options.block_edges_helpers *)
@@ -221,7 +221,7 @@ module Graph = struct
           let last_inst_name = ref None in
           iter_instrs (fun i ->
             let n = instr_name self i in
-            write self (Printf.sprintf "\"%s\" [label=\"%s\"]" n (string_of_llvalue i));
+            write self (Printf.sprintf "\"%s\" [label=\"%s\"]//!n.c" n (string_of_llvalue i));
             begin
               if self.options.control
               then match !last_inst_name with
@@ -257,7 +257,7 @@ module Graph = struct
                   edge self n arg_val (attrs ^ "//!f")
                 else
                   (* For data, flow is from opearnd to operation *)
-                  edge self arg_val n ("//!g" ^ Printf.sprintf "\n/*!g (%s) (%s)*/" (string_of_llvalue a) (value_name a))
+                  edge self arg_val n "//!g" (* ("//!g" ^ Printf.sprintf "\n/*!g (%s) (%s)*/" (string_of_llvalue a) (value_name a)) *)
               ) operands;
               last_inst_name := Some n
             end
