@@ -316,7 +316,7 @@ let _ =
   then
     control := true
 
-let mem = MemoryBuffer.of_file Sys.argv.(1);;
+let mem = MemoryBuffer.of_file (List.hd files);;
 let context = create_context ();;
 let modl = Llvm_irreader.parse_ir context mem;;
 
