@@ -151,7 +151,7 @@ module Graph = struct
           else () end;
 
           begin if not self.options.block_edges
-          then write self (Printf.sprintf "\"%s\" [label=\"label: \"%s\"\"]" name name)
+          then write self (Printf.sprintf "\"%s\" [label=\"label: %s\"]" name name)
           else if self.options.block_edges_helpers
           then write self (Printf.sprintf "\"%s\" [shape=point height=0.02 width=0.02 color=red fixedsize=true]" name)
           else () end;
